@@ -2,12 +2,12 @@
 
 ## Responsive Landing Page
 
-A modern responsive landing page built using HTML, CSS, and JavaScript.
+A modern responsive landing page built using HTML, CSS, and JavaScript as part of the Prodigy InfoTech Web Development Internship.
 
 ## Features
 
 - Fixed navigation menu
-- Navigation changes style on scroll
+- Navigation style changes on scroll
 - Hover effects on menu items
 - Responsive design for desktop, tablet, and mobile
 - Smooth scrolling
@@ -21,9 +21,11 @@ A modern responsive landing page built using HTML, CSS, and JavaScript.
 
 ## How to Run
 
-1. Download the project files.
-2. Open index.html in a browser that opens the website.
+1. Clone or download the repository.
+2. Open `index.html` in any modern web browser.
 
 ## Author
 
-Anuj Landge
+**Anuj Landge**
+
+GitHub: https://github.com/AnujLandge
