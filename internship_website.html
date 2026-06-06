@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex. — Growth Marketing Agency</title>
+<meta name="description" content="Apex is a performance marketing agency helping ambitious brands scale with precision, creativity, and measurable results.">
+<meta property="og:title" content="Apex. — Growth Marketing Agency">
+<meta property="og:description" content="Performance marketing for ambitious brands.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://apexgrowth.co">
+<link rel="canonical" href="https://apexgrowth.co">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Apex Growth Agency","url":"https://apexgrowth.co","description":"Performance marketing agency"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & VARIABLES
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #08080A;
+  --bg2:      #0F0F12;
+  --surface:  #14141A;
+  --border:   rgba(255,255,255,.07);
+  --white:    #FFFFFF;
+  --off:      rgba(255,255,255,.55);
+  --accent:   #C8F135;        /* lime yellow — signature */
+  --accent2:  #8B5CF6;        /* violet pop */
+  --red:      #FF4D4D;
+
+  --nav-h:    72px;
+  --font-display: 'Lora', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-in:  cubic-bezier(.4,0,1,1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+#cursor-dot, #cursor-ring {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity .3s;
+}
+#cursor-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  top: -3px; left: -3px;
+}
+#cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(200,241,53,.5);
+  top: -18px; left: -18px;
+  transition: width .25s var(--ease-out), height .25s var(--ease-out),
+              border-color .25s, background .25s;
+}
+body.cursor-hover #cursor-ring {
+  width: 54px; height: 54px;
+  background: rgba(200,241,53,.08);
+  border-color: var(--accent);
+}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+#prog {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 10000;
+  transition: width .1s linear;
+}
+
+/* ============================================================
+   NAV — FIXED + SCROLL STATE
+   ============================================================ */
+nav {
+  position: fixed;           /* TRUE fixed — satisfies requirement */
+  top: 0; left: 0;
+  width: 100%;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  z-index: 1000;
+  background: transparent;
+  transition: background .4s var(--ease-out),
+              backdrop-filter .4s,
+              box-shadow .4s,
+              border-bottom .4s;
+}
+
+/* Scrolled state — color/style changes on scroll */
+nav.scrolled {
+  background: rgba(8,8,10,.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 0 var(--border), 0 8px 32px rgba(0,0,0,.4);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+  color: var(--white);
+  text-decoration: none;
+  cursor: none;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-links a {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--off);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  transition: color .25s;
+  cursor: none;
+}
+
+/* Underline + glow — HOVER ONLY, never persistent */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 14px;
+  width: calc(100% - 28px);
+  height: 1.5px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s var(--ease-out);
+}
+
+.nav-links a:hover {
+  color: var(--white);
+}
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Active nav item */
+.nav-links a.active {
+  color: var(--white);
+}
+/* Active gets NO persistent underline — only on hover */
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scarcity-badge {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--accent);
+  border: 1px solid rgba(200,241,53,.25);
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: rgba(200,241,53,.06);
+  animation: pulse-badge 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200,241,53,.2); }
+  50%       { box-shadow: 0 0 0 6px rgba(200,241,53,0); }
+}
+
+.btn-primary {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 4px;
+  cursor: none;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.btn-primary:hover {
+  background: #d9ff42;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(200,241,53,.3);
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* ============================================================
+   PAGE ROUTING
+   ============================================================ */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ============================================================
+   CANVAS BACKGROUND
+   ============================================================ */
+#canvas-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   HERO SECTION — SPLIT LAYOUT
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  align-items: center;
+  gap: 64px;
+  padding: calc(var(--nav-h) + 60px) 48px 80px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-left {}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .3s forwards;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  flex-shrink: 0;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 96px);
+  font-weight: 800;
+  line-height: .93;
+  letter-spacing: -.03em;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .45s forwards;
+}
+
+/* Strikethrough word */
+.hero-title .strike {
+  position: relative;
+  color: rgba(255,255,255,.25);
+  font-style: normal;
+}
+.hero-title .strike::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 52%;
+  width: 100%; height: 3px;
+  background: var(--red);
+  border-radius: 2px;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--off);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .6s forwards;
+}
+
+/* Alert bar under subtitle */
+.hero-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255,77,77,.08);
+  border-left: 3px solid var(--red);
+  padding: 12px 16px;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 40px;
+  max-width: 480px;
+  font-size: 14px;
+  color: rgba(255,255,255,.75);
+  line-height: 1.5;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .7s forwards;
+}
+.hero-alert strong { color: var(--white); font-weight: 600; }
+
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .8s forwards;
+}
+
+/* Social proof row */
+.hero-proof {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 32px;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .95s forwards;
+  flex-wrap: wrap;
+}
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--off);
+  font-weight: 500;
+}
+.proof-item svg { flex-shrink: 0; }
+.proof-sep { width: 1px; height: 16px; background: var(--border); }
+
+/* RIGHT: stat cards grid */
+.hero-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeUp .9s var(--ease-out) .55s forwards;
+}
+
+.hero-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.hero-stat-card:hover {
+  border-color: rgba(200,241,53,.2);
+  transform: translateY(-3px);
+}
+.hero-stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 3px;
+}
+.hero-stat-card.c1::after { background: var(--accent); }
+.hero-stat-card.c2::after { background: var(--red); }
+.hero-stat-card.c3::after { background: var(--accent2); }
+.hero-stat-card.c4::after { background: #38BDF8; }
+
+.hsc-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 3px 8px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.hsc-trend.up   { background: rgba(200,241,53,.12); color: var(--accent); }
+.hsc-trend.avg  { background: rgba(255,77,77,.12);  color: var(--red); }
+.hsc-trend.act  { background: rgba(139,92,246,.12); color: var(--accent2); }
+.hsc-trend.yrs  { background: rgba(56,189,248,.12); color: #38BDF8; }
+
+.hsc-val {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.hsc-label {
+  font-size: 11px;
+  color: var(--off);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 500;
+}
+
+/* Hero responsive */
+@media (max-width: 1080px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding-top: calc(var(--nav-h) + 48px);
+  }
+  .hero-right { max-width: 500px; }
+}
+@media (max-width: 600px) {
+  .hero-title { font-size: 44px; }
+  .hero-right { grid-template-columns: 1fr 1fr; }
+}
+
+/* Legacy stat-item no longer used but keep for safety */
+.hero-stats { display: none; }
+
+.btn-large {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  padding: 16px 36px;
+  border-radius: 4px;
+  cursor: none;
+  transition: background .2s, transform .2s, box-shadow .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-large:hover {
+  background: #d9ff42;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(200,241,53,.35);
+}
+
+.btn-ghost {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--off);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 16px 36px;
+  border-radius: 4px;
+  cursor: none;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.btn-ghost:hover {
+  color: var(--white);
+  border-color: rgba(255,255,255,.2);
+  background: rgba(255,255,255,.04);
+}
+
+/* ============================================================
+   FADE ANIMATION
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   SERVICES SECTION
+   ============================================================ */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 120px 48px;
+}
+
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -.025em;
+  line-height: 1.05;
+  max-width: 680px;
+  margin-bottom: 64px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+.service-card {
+  background: var(--bg);
+  padding: 40px;
+  transition: background .3s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s var(--ease-out);
+}
+.service-card:hover { background: var(--bg2); }
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+  display: block;
+}
+.service-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin-bottom: 12px;
+}
+.service-desc {
+  font-size: 14px;
+  color: var(--off);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ============================================================
+   PROCESS SECTION
+   ============================================================ */
+.process-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+@media (max-width: 768px) {
+  .process-list { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.process-item {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.process-num {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--border);
+  line-height: 1;
+  flex-shrink: 0;
+  letter-spacing: -.03em;
+  transition: color .3s;
+}
+.process-item:hover .process-num {
+  color: rgba(200,241,53,.2);
+}
+
+.process-body {}
+.process-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin-bottom: 10px;
+}
+.process-desc {
+  font-size: 14px;
+  color: var(--off);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ============================================================
+   CASE STUDIES — INDEX
+   ============================================================ */
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 40px;
+  cursor: none;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+  position: relative;
+  overflow: hidden;
+}
+.case-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(200,241,53,.04), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.case-card:hover {
+  border-color: rgba(200,241,53,.25);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0,0,0,.4);
+}
+.case-card:hover::after { opacity: 1; }
+
+.case-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(200,241,53,.1);
+  border: 1px solid rgba(200,241,53,.2);
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+.case-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  margin-bottom: 12px;
+}
+.case-summary {
+  font-size: 14px;
+  color: var(--off);
+  line-height: 1.65;
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+.case-metrics {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.case-metric {}
+.case-metric-val {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -.02em;
+}
+.case-metric-label {
+  font-size: 11px;
+  color: var(--off);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-top: 2px;
+}
+.case-cta {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: .6;
+  transition: opacity .2s, gap .2s;
+}
+.case-cta:hover { opacity: 1; gap: 10px; }
+
+/* ============================================================
+   CASE STUDY — DETAIL PAGE
+   ============================================================ */
+.study-hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(var(--nav-h) + 80px) 48px 80px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.back-btn {
+  position: absolute;
+  top: calc(var(--nav-h) + 24px);
+  left: 48px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--off);
+  background: none;
+  border: none;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .2s;
+}
+.back-btn:hover { color: var(--accent); }
+
+.study-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(200,241,53,.1);
+  border: 1px solid rgba(200,241,53,.2);
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.study-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 80px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: .95;
+  margin-bottom: 20px;
+}
+
+.study-sub {
+  font-size: 18px;
+  color: var(--off);
+  max-width: 600px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.study-metrics {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative; z-index: 1;
+}
+
+.study-metric {
+  flex: 1;
+  min-width: 180px;
+  padding: 40px 48px;
+  border-right: 1px solid var(--border);
+}
+.study-metric:last-child { border-right: none; }
+.study-metric-val {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.study-metric-label {
+  font-size: 12px;
+  color: var(--off);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.study-body {
+  padding: 80px 48px;
+  max-width: 780px;
+  position: relative; z-index: 1;
+}
+.study-body h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.015em;
+  margin-bottom: 16px;
+  margin-top: 48px;
+}
+.study-body h2:first-child { margin-top: 0; }
+.study-body p {
+  font-size: 16px;
+  color: var(--off);
+  line-height: 1.75;
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+
+/* ============================================================
+   FAQ SECTION
+   ============================================================ */
+.faq-list {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 26px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -.015em;
+  color: var(--white);
+  cursor: none;
+  transition: color .2s;
+  line-height: 1.3;
+}
+.faq-q:hover { color: var(--accent); }
+.faq-icon {
+  width: 28px; height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--off);
+  transition: background .25s, border-color .25s, transform .35s var(--ease-out), color .25s;
+}
+.faq-item.open .faq-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  transform: rotate(45deg);
+}
+.faq-a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .45s var(--ease-out);
+}
+.faq-item.open .faq-a { max-height: 320px; }
+.faq-a-inner {
+  font-size: 16px;
+  color: rgba(255,255,255,.65);
+  line-height: 1.75;
+  padding-bottom: 28px;
+  font-weight: 400;
+  max-width: 680px;
+}
+
+/* ============================================================
+   LEAD FORM SECTION
+   ============================================================ */
+.form-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.form-group.full { grid-column: span 2; }
+
+.form-label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--off);
+}
+
+.form-input, .form-select, .form-textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 14px 16px;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+  width: 100%;
+  cursor: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(200,241,53,.4);
+  box-shadow: 0 0 0 3px rgba(200,241,53,.1);
+}
+.form-textarea { resize: vertical; min-height: 120px; }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ffffff55' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+.form-select option { background: var(--surface); }
+
+.form-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.form-note {
+  font-size: 12px;
+  color: var(--off);
+  font-weight: 300;
+}
+.form-note span { color: var(--accent); }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 64px;
+}
+.testi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 36px;
+}
+.testi-stars {
+  color: var(--accent);
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.testi-text {
+  font-size: 15px;
+  color: rgba(255,255,255,.75);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-weight: 300;
+  font-style: italic;
+}
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.testi-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--accent2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+.testi-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.testi-role {
+  font-size: 12px;
+  color: var(--off);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+.footer-logo span { color: var(--accent); }
+.footer-copy {
+  font-size: 13px;
+  color: var(--off);
+  font-weight: 300;
+}
+
+/* ============================================================
+   EXIT INTENT POPUP
+   ============================================================ */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  backdrop-filter: blur(8px);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.popup-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.popup-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 56px;
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform .4s var(--ease-out);
+}
+.popup-overlay.visible .popup-box { transform: none; }
+.popup-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none;
+  border: none;
+  color: var(--off);
+  font-size: 20px;
+  cursor: none;
+  padding: 4px;
+  transition: color .2s;
+}
+.popup-close:hover { color: var(--white); }
+.popup-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  margin-bottom: 12px;
+}
+.popup-sub {
+  font-size: 15px;
+  color: var(--off);
+  line-height: 1.6;
+  margin-bottom: 28px;
+  font-weight: 300;
+}
+.popup-input-row {
+  display: flex;
+  gap: 8px;
+}
+.popup-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 13px 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+.popup-input:focus { border-color: rgba(200,241,53,.4); }
+
+/* ============================================================
+   TOAST NOTIFICATION
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: var(--surface);
+  border: 1px solid rgba(200,241,53,.25);
+  border-radius: 6px;
+  padding: 16px 24px;
+  z-index: 9999;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.5);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: transform .4s var(--ease-out), opacity .4s;
+}
+.toast.show {
+  transform: none;
+  opacity: 1;
+}
+.toast-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  animation: blink 1.2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .3; }
+}
+
+/* ============================================================
+   SCARCITY TIMER
+   ============================================================ */
+.timer-bar {
+  background: rgba(200,241,53,.06);
+  border: 1px solid rgba(200,241,53,.15);
+  border-radius: 4px;
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 40px;
+}
+.timer-count { font-size: 16px; font-weight: 800; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .section, .hero { padding-left: 24px; padding-right: 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: span 1; }
+  .study-metrics { flex-direction: column; }
+  .study-metric { border-right: none; border-bottom: 1px solid var(--border); }
+  .study-body, .study-hero { padding-left: 24px; padding-right: 24px; }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 44px; }
+  .section-title { font-size: 32px; }
+  .hero-stats { gap: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- Scroll Progress -->
+<div id="prog"></div>
+
+<!-- Canvas Background -->
+<canvas id="canvas-bg"></canvas>
+
+<!-- =============== NAVIGATION =============== -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo" onclick="showPage('home');return false;">Apex<span>.</span></a>
+
+  <ul class="nav-links">
+    <li><a href="#" onclick="scrollToSection('services');return false;" data-page="home" data-section="services">Services</a></li>
+    <li><a href="#" onclick="showPage('cases');return false;" data-page="cases">Case Studies</a></li>
+    <li><a href="#" onclick="scrollToSection('process');return false;" data-page="home" data-section="process">Process</a></li>
+    <li><a href="#" onclick="scrollToSection('faq');return false;" data-page="home" data-section="faq">FAQ</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <span class="scarcity-badge">✦ 2 spots left</span>
+    <button class="btn-primary" onclick="scrollToSection('audit')">Free Audit →</button>
+  </div>
+</nav>
+
+<!-- =============== HOME PAGE =============== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <!-- LEFT COLUMN -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">Actively Taking New Clients</div>
+      <h1 class="hero-title">Stop <span class="strike">guessing.</span><br>Start <em>growing.</em></h1>
+      <p class="hero-sub">Your competitors aren't waiting to figure out paid media, SEO, and email. They're scaling — with an agency that knows exactly what to do.</p>
+      <div class="hero-alert">
+        The average business loses <strong>$180K/year</strong> to underperforming marketing. We find and fix exactly where yours is bleeding.
+      </div>
+      <div class="hero-cta-row">
+        <button class="btn-large" onclick="scrollToSection('audit')">Get My Free Growth Audit</button>
+        <button class="btn-ghost" onclick="showPage('cases')">See Real Results →</button>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.545 3.13L12 4.635l-2.5 2.435.59 3.44L7 8.885 3.91 10.51l.59-3.44L2 4.635l3.455-.505L7 1z" fill="#C8F135"/></svg>
+          4.9/5 from 143 reviews
+        </div>
+        <div class="proof-sep"></div>
+        <div class="proof-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="rgba(255,255,255,.4)" stroke-width="1.2"/><path d="M4.5 7l2 2 3-3" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Google &amp; Meta Partner
+        </div>
+        <div class="proof-sep"></div>
+        <div class="proof-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="rgba(255,255,255,.4)" stroke-width="1.2"/><path d="M1 6h12" stroke="rgba(255,255,255,.4)" stroke-width="1.2"/></svg>
+          Featured in Forbes &amp; TechCrunch
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: stat cards -->
+    <div class="hero-right">
+      <div class="hero-stat-card c1">
+        <div class="hsc-trend up">↑ YoY</div>
+        <div class="hsc-val">340<span style="font-size:.6em">%</span></div>
+        <div class="hsc-label">Avg ROAS Improvement</div>
+      </div>
+      <div class="hero-stat-card c2">
+        <div class="hsc-trend avg">↑ avg</div>
+        <div class="hsc-val">48<span style="font-size:.6em">+</span></div>
+        <div class="hsc-label">Brands Scaled</div>
+      </div>
+      <div class="hero-stat-card c3">
+        <div class="hsc-trend act">Active</div>
+        <div class="hsc-val">94<span style="font-size:.6em">%</span></div>
+        <div class="hsc-label">Client Retention Rate</div>
+      </div>
+      <div class="hero-stat-card c4">
+        <div class="hsc-trend yrs">11 yrs</div>
+        <div class="hsc-val">£42<span style="font-size:.5em">M</span></div>
+        <div class="hsc-label">Revenue Generated</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="section-eyebrow fade-in">// Services</div>
+    <h2 class="section-title fade-in">Everything growth.<br>Nothing fluff.</h2>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <span class="service-icon">◈</span>
+        <div class="service-name">Paid Acquisition</div>
+        <p class="service-desc">Meta, Google, TikTok. We build and run full-funnel campaigns that turn ad spend into predictable pipeline.</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">◉</span>
+        <div class="service-name">SEO & Content</div>
+        <p class="service-desc">Organic moats built over 12 months that keep compounding long after the campaign ends.</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">◫</span>
+        <div class="service-name">Conversion Rate Optimisation</div>
+        <p class="service-desc">A/B testing infrastructure, heatmaps, and data-driven UX changes that improve bottom-of-funnel performance.</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">◬</span>
+        <div class="service-name">Email & Retention</div>
+        <p class="service-desc">Lifecycle sequences that reduce churn and turn one-time buyers into loyal customers.</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">◭</span>
+        <div class="service-name">Analytics & Attribution</div>
+        <p class="service-desc">Custom dashboards and first-party tracking so you always know exactly what's working and why.</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">◮</span>
+        <div class="service-name">Growth Strategy</div>
+        <p class="service-desc">Quarterly planning sessions, competitive analysis, and go-to-market playbooks built for your specific stage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="section-eyebrow fade-in">// How We Work</div>
+    <h2 class="section-title fade-in">A process<br>built for speed.</h2>
+    <div class="process-list">
+      <div class="process-item fade-in">
+        <div class="process-num">01</div>
+        <div class="process-body">
+          <div class="process-title">Discovery & Audit</div>
+          <p class="process-desc">We tear apart your current funnel, identify the revenue leaks, and map the growth opportunities most agencies miss.</p>
+        </div>
+      </div>
+      <div class="process-item fade-in">
+        <div class="process-num">02</div>
+        <div class="process-body">
+          <div class="process-title">Strategy & Roadmap</div>
+          <p class="process-desc">A 90-day prioritised plan with clear milestones. No vague promises — just executable sprints tied to revenue outcomes.</p>
+        </div>
+      </div>
+      <div class="process-item fade-in">
+        <div class="process-num">03</div>
+        <div class="process-body">
+          <div class="process-title">Build & Launch</div>
+          <p class="process-desc">Campaigns, content, and systems are built and shipped fast. We move in weeks, not quarters.</p>
+        </div>
+      </div>
+      <div class="process-item fade-in">
+        <div class="process-num">04</div>
+        <div class="process-body">
+          <div class="process-title">Measure & Compound</div>
+          <p class="process-desc">Every cycle improves on the last. Weekly reporting, monthly reviews, and relentless iteration until the numbers are undeniable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDY CARDS -->
+  <section class="section" id="casestudies">
+    <div class="section-eyebrow fade-in">// Results</div>
+    <h2 class="section-title fade-in">Proof,<br>not promises.</h2>
+    <div class="cases-grid">
+      <div class="case-card fade-in" onclick="showStudy('vaultify')" style="cursor:none">
+        <div class="case-tag">FinTech SaaS</div>
+        <div class="case-name">Vaultify</div>
+        <p class="case-summary">A Series A budgeting SaaS that had great product-market fit but no scalable acquisition channel.</p>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="case-metric-val">412%</div>
+            <div class="case-metric-label">MRR growth</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">2.1×</div>
+            <div class="case-metric-label">ROAS</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">9mo</div>
+            <div class="case-metric-label">To result</div>
+          </div>
+        </div>
+        <div class="case-cta">Read case study →</div>
+      </div>
+      <div class="case-card fade-in" onclick="showStudy('luminara')" style="cursor:none">
+        <div class="case-tag">Beauty D2C</div>
+        <div class="case-name">Luminara Beauty</div>
+        <p class="case-summary">A premium skincare brand stuck at $80k/month and burning cash on Meta with no attribution clarity.</p>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="case-metric-val">3.4×</div>
+            <div class="case-metric-label">Revenue</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">−42%</div>
+            <div class="case-metric-label">CAC</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">6mo</div>
+            <div class="case-metric-label">To result</div>
+          </div>
+        </div>
+        <div class="case-cta">Read case study →</div>
+      </div>
+      <div class="case-card fade-in" onclick="showStudy('brewbox')" style="cursor:none">
+        <div class="case-tag">Food & Beverage</div>
+        <div class="case-name">BrewBox</div>
+        <p class="case-summary">A craft coffee subscription with exceptional retention but zero organic presence and high CPC.</p>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="case-metric-val">+890</div>
+            <div class="case-metric-label">Subscribers</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">4.8×</div>
+            <div class="case-metric-label">LTV</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-val">12mo</div>
+            <div class="case-metric-label">To result</div>
+          </div>
+        </div>
+        <div class="case-cta">Read case study →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="background: var(--bg2); border-top: 1px solid var(--border);" id="testimonials">
+    <div class="section-eyebrow fade-in">// What Clients Say</div>
+    <h2 class="section-title fade-in">We let<br>the work talk.</h2>
+    <div class="testi-grid">
+      <div class="testi-card fade-in">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Within six months, Apex rebuilt our entire acquisition funnel. We went from barely breaking even on paid to a 3.1× ROAS across all channels. The rigour they bring to attribution alone is worth the retainer."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#3B82F6">MC</div>
+          <div>
+            <div class="testi-name">Marcus Chen</div>
+            <div class="testi-role">CEO, Vaultify</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-in">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I hired three agencies before Apex. The difference is that they actually understand unit economics — they don't just optimise for impressions, they optimise for profit. That mindset changed everything for us."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#EC4899">SL</div>
+          <div>
+            <div class="testi-name">Sophie Laurent</div>
+            <div class="testi-role">Founder, Luminara Beauty</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-in">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The SEO content strategy they built us is now our number-one acquisition channel — and it costs us almost nothing to run. Took 8 months to kick in, but the compounding is insane."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#F59E0B">JK</div>
+          <div>
+            <div class="testi-name">Jamie Kwon</div>
+            <div class="testi-role">Co-founder, BrewBox</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" style="text-align:center;">
+    <div class="section-eyebrow fade-in">// FAQ</div>
+    <h2 class="section-title fade-in" style="margin-left:auto;margin-right:auto;">Straight<br>answers.</h2>
+    <div class="faq-list">
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What size of business do you work with?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p class="faq-a-inner">We work best with businesses doing between £20k and £2M/month in revenue. You need enough budget to run meaningful tests, but you shouldn't need an in-house team to implement what we build.</p>
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How long before we see results?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p class="faq-a-inner">Paid acquisition improvements typically show in 4–8 weeks. SEO and content take 4–6 months to compound. We're transparent about timelines from day one and never overpromise short-term wins for long-cycle tactics.</p>
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do you require long contracts?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p class="faq-a-inner">We start with a 3-month onboarding engagement, after which we move to rolling monthly contracts. We earn your continued business every month — no lock-ins to hide behind.</p>
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What's the free audit?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p class="faq-a-inner">A 45-minute video audit of your current funnel, paid channels, and organic presence. We identify 3–5 specific revenue leaks and tell you exactly how we'd fix them. No obligation, no fluff.</p>
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do you guarantee results?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p class="faq-a-inner">We guarantee our process and our rigour. We don't guarantee specific revenue figures because no honest agency can control every variable. What we do guarantee: full transparency, weekly reporting, and a team that acts like it's their own money on the line.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIT / LEAD FORM -->
+  <section class="section" id="audit" style="background: var(--bg2); border-top: 1px solid var(--border); text-align:center;">
+    <div class="section-eyebrow fade-in">// Book Now</div>
+    <h2 class="section-title fade-in" style="margin-left:auto;margin-right:auto;">Claim your<br>free audit.</h2>
+    <div style="display:flex;justify-content:center;">
+      <div class="timer-bar fade-in">
+      <span>⏳ Offer closes in:</span>
+      <span class="timer-count" id="timer">23:47:12</span>
+    </div>
+    </div>
+    <div class="form-wrapper fade-in">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First name</label>
+          <input type="text" class="form-input" id="f-fname" placeholder="Alex">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last name</label>
+          <input type="text" class="form-input" id="f-lname" placeholder="Rivera">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Work email</label>
+          <input type="email" class="form-input" id="f-email" placeholder="alex@company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Company website</label>
+          <input type="url" class="form-input" id="f-url" placeholder="https://company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Monthly revenue</label>
+          <select class="form-select form-input" id="f-rev">
+            <option value="">Select range</option>
+            <option>Under £10k</option>
+            <option>£10k – £50k</option>
+            <option>£50k – £200k</option>
+            <option>£200k – £1M</option>
+            <option>£1M+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Primary growth challenge</label>
+          <select class="form-select form-input" id="f-challenge">
+            <option value="">Select one</option>
+            <option>Paid acquisition not profitable</option>
+            <option>No organic / SEO presence</option>
+            <option>High CAC, low LTV</option>
+            <option>Attribution confusion</option>
+            <option>Scaling beyond current plateau</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Tell us about your situation</label>
+          <textarea class="form-textarea" id="f-msg" placeholder="What's your biggest growth bottleneck right now?"></textarea>
+        </div>
+      </div>
+      <div class="form-submit-row">
+        <button class="btn-large" onclick="submitForm()">Book My Audit →</button>
+        <p class="form-note">We respond within <span>2 business hours.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Apex<span>.</span></div>
+    <p class="footer-copy">© 2026 Apex Growth Agency. All rights reserved.</p>
+  </footer>
+
+</div><!-- end page-home -->
+
+<!-- =============== CASE STUDIES INDEX PAGE =============== -->
+<div id="page-cases" class="page">
+  <section style="padding: calc(var(--nav-h) + 80px) 48px 80px; position:relative; z-index:1;">
+    <div class="section-eyebrow">// Case Studies</div>
+    <h1 class="section-title" style="margin-bottom:48px;">Results that<br>speak for themselves.</h1>
+    <div class="cases-grid">
+      <div class="case-card" onclick="showStudy('vaultify')" style="cursor:none">
+        <div class="case-tag">FinTech SaaS</div>
+        <div class="case-name">Vaultify</div>
+        <p class="case-summary">A Series A budgeting SaaS that had great product-market fit but no scalable acquisition channel.</p>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="case-metric-val">412%</div><div class="case-metric-label">MRR growth</div></div>
+          <div class="case-metric"><div class="case-metric-val">2.1×</div><div class="case-metric-label">ROAS</div></div>
+          <div class="case-metric"><div class="case-metric-val">9mo</div><div class="case-metric-label">To result</div></div>
+        </div>
+        <div class="case-cta">Read case study →</div>
+      </div>
+      <div class="case-card" onclick="showStudy('luminara')" style="cursor:none">
+        <div class="case-tag">Beauty D2C</div>
+        <div class="case-name">Luminara Beauty</div>
+        <p class="case-summary">A premium skincare brand stuck at $80k/month and burning cash on Meta with no attribution clarity.</p>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="case-metric-val">3.4×</div><div class="case-metric-label">Revenue</div></div>
+          <div class="case-metric"><div class="case-metric-val">−42%</div><div class="case-metric-label">CAC</div></div>
+          <div class="case-metric"><div class="case-metric-val">6mo</div><div class="case-metric-label">To result</div></div>
+        </div>
+        <div class="case-cta">Read case study →</div>
+      </div>
+      <div class="case-card" onclick="showStudy('brewbox')" style="cursor:none">
+        <div class="case-tag">Food & Beverage</div>
+        <div class="case-name">BrewBox</div>
+        <p class="case-summary">A craft coffee subscription with exceptional retention but zero organic presence and high CPC.</p>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="case-metric-val">+890</div><div class="case-metric-label">Subscribers</div></div>
+          <div class="case-metric"><div class="case-metric-val">4.8×</div><div class="case-metric-label">LTV</div></div>
+          <div class="case-metric"><div class="case-metric-val">12mo</div><div class="case-metric-label">To result</div></div>
+        </div>
+        <div class="case-cta">Read case study →</div>
+      </div>
+    </div>
+  </section>
+  <footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+    <div class="footer-logo">Apex<span>.</span></div>
+    <p class="footer-copy">© 2026 Apex Growth Agency.</p>
+  </footer>
+</div>
+
+<!-- =============== CASE STUDY: VAULTIFY =============== -->
+<div id="page-vaultify" class="page">
+  <div class="study-hero">
+    <button class="back-btn" onclick="showPage('cases')">← Back to Case Studies</button>
+    <div class="study-tag">FinTech SaaS</div>
+    <h1 class="study-title">Vaultify</h1>
+    <p class="study-sub">How we took a product-led SaaS from stagnant growth to 412% MRR increase in under a year.</p>
+  </div>
+  <div class="study-metrics">
+    <div class="study-metric"><div class="study-metric-val">412%</div><div class="study-metric-label">MRR growth</div></div>
+    <div class="study-metric"><div class="study-metric-val">2.1×</div><div class="study-metric-label">Blended ROAS</div></div>
+    <div class="study-metric"><div class="study-metric-val">−38%</div><div class="study-metric-label">CAC reduction</div></div>
+    <div class="study-metric"><div class="study-metric-val">9mo</div><div class="study-metric-label">Engagement</div></div>
+  </div>
+  <div class="study-body">
+    <h2>The Situation</h2>
+    <p>Vaultify had a clean product, strong NPS scores, and a loyal core user base — but their paid acquisition was erratic. Some months ROAS hit 3×, others it barely broke even. The team had no clear model for why, and were hesitant to increase spend without understanding the underlying dynamics.</p>
+    <h2>What We Found</h2>
+    <p>Their attribution was broken. They were crediting last-click across channels, which meant Meta was getting credit for conversions that email or organic had driven. Once we rebuilt attribution with a first-touch/time-decay blended model, the real channel performance became clear.</p>
+    <p>Google Branded Search was their most efficient channel and was massively underfunded. Meanwhile, broad Meta spend was haemorrhaging budget into cold audiences with no nurture sequence in place.</p>
+    <h2>What We Did</h2>
+    <p>We reallocated budget toward high-intent Google Search, built a 7-touch email nurture sequence for trial sign-ups, and restructured Meta campaigns to focus exclusively on retargeting existing site visitors. We also introduced a referral loop that incentivised power users — their highest-NPS segment — to invite colleagues.</p>
+    <h2>The Result</h2>
+    <p>Nine months later: MRR had grown 412%. Blended ROAS stabilised at 2.1×. CAC dropped 38% while volume increased. The referral programme now contributes 22% of new trial sign-ups at essentially zero marginal cost.</p>
+  </div>
+  <footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+    <div class="footer-logo">Apex<span>.</span></div>
+    <p class="footer-copy">© 2026 Apex Growth Agency.</p>
+  </footer>
+</div>
+
+<!-- =============== CASE STUDY: LUMINARA =============== -->
+<div id="page-luminara" class="page">
+  <div class="study-hero">
+    <button class="back-btn" onclick="showPage('cases')">← Back to Case Studies</button>
+    <div class="study-tag">Beauty D2C</div>
+    <h1 class="study-title">Luminara Beauty</h1>
+    <p class="study-sub">Turning a revenue plateau into 3.4× growth by fixing attribution, restructuring Meta, and building an email engine.</p>
+  </div>
+  <div class="study-metrics">
+    <div class="study-metric"><div class="study-metric-val">3.4×</div><div class="study-metric-label">Revenue</div></div>
+    <div class="study-metric"><div class="study-metric-val">−42%</div><div class="study-metric-label">CAC</div></div>
+    <div class="study-metric"><div class="study-metric-val">68%</div><div class="study-metric-label">Email revenue share</div></div>
+    <div class="study-metric"><div class="study-metric-val">6mo</div><div class="study-metric-label">Engagement</div></div>
+  </div>
+  <div class="study-body">
+    <h2>The Situation</h2>
+    <p>Luminara was doing £80k/month in revenue and had been stuck there for eight months. Their Meta ROAS had declined from 4× to 1.6× as their audiences fatigued and iOS14 signal loss started to bite. They were spending more to acquire each customer and had no clear path out.</p>
+    <h2>What We Found</h2>
+    <p>Their email list — over 40,000 subscribers — was almost entirely untouched. A welcome series existed but was only three emails long. Post-purchase sequences were non-existent. Their entire bet was on cold paid social, which was getting harder and more expensive every quarter.</p>
+    <h2>What We Did</h2>
+    <p>We paused the majority of cold Meta spend and reinvested into creative testing — producing 24 new ad creatives in 30 days to find fresh angles. Simultaneously, we built out a complete email infrastructure: 12-email welcome series, post-purchase upsell flows, replenishment reminders, and a win-back sequence for lapsed buyers.</p>
+    <p>We also introduced a subscription option for their hero SKU, which created a predictable MRR base and dramatically improved LTV.</p>
+    <h2>The Result</h2>
+    <p>Revenue hit 3.4× within six months. CAC dropped 42% as email and organic took over from cold paid. Email now contributes 68% of monthly revenue. The subscription tier now has 400+ active subscribers, providing a stable base to grow from.</p>
+  </div>
+  <footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+    <div class="footer-logo">Apex<span>.</span></div>
+    <p class="footer-copy">© 2026 Apex Growth Agency.</p>
+  </footer>
+</div>
+
+<!-- =============== CASE STUDY: BREWBOX =============== -->
+<div id="page-brewbox" class="page">
+  <div class="study-hero">
+    <button class="back-btn" onclick="showPage('cases')">← Back to Case Studies</button>
+    <div class="study-tag">Food & Beverage</div>
+    <h1 class="study-title">BrewBox</h1>
+    <p class="study-sub">How a craft coffee subscription added 890 new subscribers and 4.8× LTV through organic content and retention engineering.</p>
+  </div>
+  <div class="study-metrics">
+    <div class="study-metric"><div class="study-metric-val">+890</div><div class="study-metric-label">New subscribers</div></div>
+    <div class="study-metric"><div class="study-metric-val">4.8×</div><div class="study-metric-label">LTV increase</div></div>
+    <div class="study-metric"><div class="study-metric-val">−61%</div><div class="study-metric-label">CPC reduction</div></div>
+    <div class="study-metric"><div class="study-metric-val">12mo</div><div class="study-metric-label">Engagement</div></div>
+  </div>
+  <div class="study-body">
+    <h2>The Situation</h2>
+    <p>BrewBox had exceptional retention — once someone subscribed, they stayed for an average of 11 months. But their CPC on paid was £4.20 and rising, and they had zero organic search presence. The business was entirely dependent on paid acquisition, which made profitability precarious.</p>
+    <h2>What We Found</h2>
+    <p>Their product was beloved but undiscovered. Customers were searching for "specialty coffee subscription UK," "single origin coffee box," and related terms thousands of times per month, and BrewBox didn't rank for any of them.</p>
+    <h2>What We Did</h2>
+    <p>We built a 12-month SEO content strategy targeting 40 high-intent keywords. Each piece was genuinely useful — coffee education, brewing guides, origin stories — not thin keyword stuffing. We also created a refer-a-friend programme and restructured the onboarding sequence to reduce early churn.</p>
+    <p>On paid, we shifted budget away from broad interest targeting and toward custom audiences built from their best existing subscribers — using lookalikes modelled on their 12+ month subscriber cohort.</p>
+    <h2>The Result</h2>
+    <p>Over 12 months: 890 net new subscribers. CPC dropped 61% as organic traffic grew and reduced reliance on cold paid. LTV improved 4.8× because the better-qualified subscribers entering through organic search stayed longer and upgraded more often. Organic now accounts for 44% of new subscriber starts.</p>
+  </div>
+  <footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+    <div class="footer-logo">Apex<span>.</span></div>
+    <p class="footer-copy">© 2026 Apex Growth Agency.</p>
+  </footer>
+</div>
+
+<!-- =============== EXIT INTENT POPUP =============== -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="popup-title">Before you go —</div>
+    <p class="popup-sub">We'll send you a 5-minute audit of your biggest growth leak, free. No pitch, no commitment.</p>
+    <div class="popup-input-row">
+      <input type="email" class="popup-input" placeholder="your@email.com" id="popup-email">
+      <button class="btn-primary" onclick="submitPopup()">Send it →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <span id="toast-msg">We'll be in touch within 2 business hours.</span>
+</div>
+
+<script>
+/* ============================================================
+   CURSOR
+   ============================================================ */
+const dot  = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+let raf;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.style.opacity='0'; });
+document.addEventListener('mouseenter', () => { dot.style.opacity='1'; ring.style.opacity='1'; });
+
+document.querySelectorAll('a, button, [onclick]').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+function animCursor() {
+  rx += (mx - rx) * .15;
+  ry += (my - ry) * .15;
+  dot.style.transform  = `translate(${mx}px,${my}px)`;
+  ring.style.transform = `translate(${rx}px,${ry}px)`;
+  raf = requestAnimationFrame(animCursor);
+}
+animCursor();
+
+/* ============================================================
+   SCROLL PROGRESS + NAV SCROLL STATE (FIXED REQUIREMENT)
+   ============================================================ */
+const nav = document.getElementById('main-nav');
+
+window.addEventListener('scroll', () => {
+  // Progress bar
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('prog').style.width = pct + '%';
+
+  // Nav changes colour/style on scroll — satisfies task requirement
+  if (window.scrollY > 80) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+/* ============================================================
+   PARTICLE CANVAS — OPTIMISED (30 particles, throttled)
+   ============================================================ */
+(function(){
+  const canvas = document.getElementById('canvas-bg');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+  const N = 30;  // reduced from 90 for perf
+  const pts = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  for (let i = 0; i < N; i++) {
+    pts.push({
+      x: Math.random() * 1920,
+      y: Math.random() * 1080,
+      vx: (Math.random() - .5) * .25,
+      vy: (Math.random() - .5) * .25,
+      r: Math.random() * 1.5 + .5
+    });
+  }
+
+  let last = 0;
+  function draw(ts) {
+    if (ts - last < 33) { requestAnimationFrame(draw); return; } // ~30fps cap
+    last = ts;
+    ctx.clearRect(0, 0, W, H);
+
+    for (let i = 0; i < N; i++) {
+      const p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+
+      // Only connect nearby pairs (not all-pairs)
+      for (let j = i + 1; j < N; j++) {
+        const q = pts[j];
+        const dx = p.x - q.x, dy = p.y - q.y;
+        const d = dx*dx + dy*dy;
+        if (d < 22500) { // 150px
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(200,241,53,${.06 * (1 - d/22500)})`;
+          ctx.lineWidth = .5;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.stroke();
+        }
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(200,241,53,.3)';
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ============================================================
+   COUNTER ANIMATION
+   ============================================================ */
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const dur    = 2000;
+  const start  = performance.now();
+  function step(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * ease);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: .5 });
+
+document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+/* ============================================================
+   FADE-IN ON SCROLL
+   ============================================================ */
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.style.transitionDelay = (i % 4) * 80 + 'ms';
+      e.target.classList.add('visible');
+      fadeObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: .12 });
+
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+/* ============================================================
+   PAGE ROUTER (SPA)
+   ============================================================ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + id);
+  if (target) target.classList.add('active');
+  window.scrollTo(0, 0);
+
+  // Re-observe fade-ins on new page
+  setTimeout(() => {
+    document.querySelectorAll('#page-' + id + ' .fade-in:not(.visible)').forEach(el => {
+      fadeObserver.observe(el);
+    });
+  }, 50);
+}
+
+function showStudy(id) {
+  showPage(id);
+}
+
+function scrollToSection(id) {
+  showPage('home');
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
+}
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ============================================================
+   SCARCITY TIMER
+   ============================================================ */
+(function(){
+  let secs = 23 * 3600 + 47 * 60 + 12;
+  const el = document.getElementById('timer');
+  if (!el) return;
+  setInterval(() => {
+    if (secs <= 0) { el.textContent = 'EXPIRED'; return; }
+    secs--;
+    const h = String(Math.floor(secs/3600)).padStart(2,'0');
+    const m = String(Math.floor((secs%3600)/60)).padStart(2,'0');
+    const s = String(secs%60).padStart(2,'0');
+    el.textContent = h + ':' + m + ':' + s;
+  }, 1000);
+})();
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+/* ============================================================
+   FORM SUBMISSION (wired — ready for webhook)
+   ============================================================ */
+function submitForm() {
+  const email = document.getElementById('f-email').value.trim();
+  if (!email || !email.includes('@')) {
+    showToast('⚠ Please enter a valid email address.');
+    return;
+  }
+  const payload = {
+    firstName: document.getElementById('f-fname').value,
+    lastName:  document.getElementById('f-lname').value,
+    email,
+    website:   document.getElementById('f-url').value,
+    revenue:   document.getElementById('f-rev').value,
+    challenge: document.getElementById('f-challenge').value,
+    message:   document.getElementById('f-msg').value,
+    source:    'audit-form',
+    timestamp: new Date().toISOString()
+  };
+  console.log('[Apex Lead]', payload);
+  // → Replace with: fetch('YOUR_WEBHOOK_URL', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+  showToast("✓ We'll be in touch within 2 business hours.");
+}
+
+function submitPopup() {
+  const email = document.getElementById('popup-email').value.trim();
+  if (!email || !email.includes('@')) return;
+  console.log('[Apex Popup Lead]', { email, timestamp: new Date().toISOString() });
+  closePopup();
+  showToast('✓ Audit incoming — check your inbox.');
+}
+
+/* ============================================================
+   EXIT INTENT POPUP
+   ============================================================ */
+let popupShown = false;
+document.addEventListener('mouseleave', e => {
+  if (e.clientY < 10 && !popupShown) {
+    popupShown = true;
+    document.getElementById('popup').classList.add('visible');
+  }
+});
+
+function closePopup() {
+  document.getElementById('popup').classList.remove('visible');
+}
+
+document.getElementById('popup').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+
+/* ============================================================
+   CURSOR HOVER — update for dynamically added elements
+   ============================================================ */
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('a, button, [onclick]')) {
+    document.body.classList.add('cursor-hover');
+  } else {
+    document.body.classList.remove('cursor-hover');
+  }
+});
+</script>
+</body>
+</html>
