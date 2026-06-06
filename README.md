@@ -1,5 +1,10 @@
 # PRODIGY_WD_01
 
+## Live Demo
+
+https://anujlandge.github.io/PRODIGY_WD_01/ 
+
+
 ## Responsive Landing Page
 
 A modern responsive landing page built using HTML, CSS, and JavaScript as part of the Prodigy InfoTech Web Development Internship.
