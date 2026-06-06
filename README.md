@@ -22,7 +22,7 @@ A modern responsive landing page built using HTML, CSS, and JavaScript.
 ## How to Run
 
 1. Download the project files.
-2. Open Website.html in a browser.
+2. Open internship_website.html in a browser.
 
 ## Author
 
