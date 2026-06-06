@@ -1,18 +1,29 @@
-PRODIGY_WD_01
-Responsive Landing Page
+# PRODIGY_WD_01
 
-A responsive landing page built using HTML, CSS, and JavaScript.
+## Responsive Landing Page
 
-Features
-Responsive design
-Interactive navigation menu
-Hover effects
-Mobile-friendly layout
-Modern UI
-Technologies Used
-HTML5
-CSS3
-JavaScript
-Author
+A modern responsive landing page built using HTML, CSS, and JavaScript.
+
+## Features
+
+- Fixed navigation menu
+- Navigation changes style on scroll
+- Hover effects on menu items
+- Responsive design for desktop, tablet, and mobile
+- Smooth scrolling
+- Interactive UI elements
+
+## Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+
+## How to Run
+
+1. Download the project files.
+2. Open Website.html in a browser.
+
+## Author
 
 Anuj Landge
